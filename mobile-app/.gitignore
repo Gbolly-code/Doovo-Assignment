@@ -1,0 +1,11 @@
+# Node modules
+node_modules/
+
+# Expo / React Native build files
+.expo/
+.expo-shared/
+dist/
+*.log
+
+# Environment files
+.env
