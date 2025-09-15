@@ -1,4 +1,4 @@
-// src/bookings/bookings.controller.ts
+
 import {
   Body,
   Controller,
@@ -9,6 +9,7 @@ import {
   NotFoundException,
   Post,
   BadRequestException,
+  Req,
 } from '@nestjs/common';
 import { BookingsService } from './bookings.service';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
@@ -23,8 +24,9 @@ export class BookingsController {
 
   @UseGuards(JwtAuthGuard)
   @Post()
-  create(@Body() createBookingDto: CreateBookingDto) {
-    return this.bookingsService.create(createBookingDto);
+  create(@Body() createBookingDto: CreateBookingDto, @Req() req: any) {
+    const userId = req.user.id;
+    return this.bookingsService.create(createBookingDto, userId);
   }
 
   @Get()
