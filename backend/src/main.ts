@@ -26,8 +26,7 @@ async function bootstrap() {
    app.useGlobalFilters(new AllExceptionsFilter());
     
    const port = process.env.PORT || 4000;
-  await app.listen(port, '0,0,0,0');
-
+  await app.listen(port);
   console.log(`Server running on port ${port}`);
 }
 bootstrap();
