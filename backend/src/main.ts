@@ -17,14 +17,15 @@ async function bootstrap() {
  
      app.useGlobalPipes(
     new ValidationPipe({
-      whitelist: true, // strips unknown properties
-      forbidNonWhitelisted: true, // throw error if extra fields are sent
-      transform: true, // auto-transform payloads to DTO classes
+      whitelist: true, 
+      forbidNonWhitelisted: true, 
+      transform: true, 
     }),
   );
 
    app.useGlobalFilters(new AllExceptionsFilter());
-
-  await app.listen(4000, '0.0.0.0');
+    
+   const port = process.env.PORT || 4000;
+  await app.listen(port);
 }
 bootstrap();
