@@ -4,11 +4,10 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { ValidationPipe } from '@nestjs/common';
 import { AllExceptionsFilter } from './common/filters/http-exception.filter';
 
-let handler: any;
-
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
+  // Swagger setup
   const config = new DocumentBuilder()
     .setTitle('Doovo API')
     .setDescription('Mini Doovo API')
@@ -18,6 +17,7 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);
 
+  // Global pipes
   app.useGlobalPipes(
     new ValidationPipe({
       whitelist: true,
@@ -26,17 +26,12 @@ async function bootstrap() {
     }),
   );
 
+  // Global filters
   app.useGlobalFilters(new AllExceptionsFilter());
 
-  await app.init();
-
-  // Return Express handler instead of starting a server
-  return app.getHttpAdapter().getInstance();
+  // 🚀 Railway requires app.listen() on the provided PORT
+  const port = process.env.PORT || 4000;
+  await app.listen(port, '0.0.0.0');
+  console.log(`🚀 Server is running on port ${port}`);
 }
-
-export default async function vercelHandler(req: any, res: any) {
-  if (!handler) {
-    handler = await bootstrap();
-  }
-  return handler(req, res);
-}
+bootstrap();
