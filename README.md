@@ -34,8 +34,8 @@ password: 1234
 cd backend
 npm install
 npm run start:dev
-API available at: https://doovo-assignment-production.up.railway.app/api
-Swagger docs: https://doovo-assignment-production.up.railway.app/api/docs
+API available at: 'http://172.20.10.3:4000'
+Swagger docs: 'http://172.20.10.3:4000/api'
 
 **Frontend**
 cd mobile-app
